@@ -28,15 +28,18 @@ client.on("messageCreate", async (message) => {
   try {
     const content = message.content.trim().toLowerCase();
 
-    const messageMatch = messages.find((message) => message.trigger === content);
-
+    const messageMatch = messages.find(
+      (message) => message.trigger === content
+    );
     if (messageMatch) {
       await message.reply(messageMatch.response);
     }
 
     const soundMatch = sounds.find((sound) => sound.trigger === content);
     console.log(soundMatch);
-    
+    if (soundMatch) {
+      await playSoundInChannel(message, soundMatch.trigger);
+    }
   } catch (error) {
     console.error("Failed to react to message:", error);
   }
