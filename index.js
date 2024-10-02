@@ -9,6 +9,8 @@ import dotenv from "dotenv";
 import sodium from "libsodium-wrappers";
 dotenv.config();
 
+import messages from "./messages/messages";
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -30,16 +32,10 @@ client.on("messageCreate", async (message) => {
   try {
     const content = message.content.trim().toLowerCase();
 
-    if (content === "dennis") {
-      await message.reply("dennis lutsch eier");
-    }
+    const messageMatch = messages.find((controller) => controller.trigger = content);
 
-    if (content === "john") {
-      await message.reply("John ist ein Macher");
-    }
-
-    if (content === "hubert") {
-      await message.reply("Ist der SCHWULSTE HIER");
+    if (matchedController) {
+      await message.reply(messageMatch.response);
     }
 
     // Play sounds
