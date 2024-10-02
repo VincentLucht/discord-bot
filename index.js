@@ -20,6 +20,9 @@ client.on("messageCreate", async (message) => {
   // Ignore messages from bots to prevent potential loops
   if (message.author.bot) return;
 
+  const test = sounds.map((sound) => sound.trigger);
+  console.log(test);
+
   if (!message.content.trim()) {
     console.log("Received an empty message, skipping processing");
     return;
@@ -28,6 +31,11 @@ client.on("messageCreate", async (message) => {
   try {
     const content = message.content.trim().toLowerCase();
 
+    // help
+    if (content === "!help") {
+      await message.reply(sounds.map((sound) => sound.trigger).join("\n"));
+    }
+    
     // text messages
     const messageMatch = messages.find(
       (message) => message.trigger === content
