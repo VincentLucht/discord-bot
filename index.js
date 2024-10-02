@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import sodium from "libsodium-wrappers";
 dotenv.config();
 
-import messages from "./messages/messages";
+import messages from "./messages/messages.js";
 
 const client = new Client({
   intents: [
@@ -34,7 +34,7 @@ client.on("messageCreate", async (message) => {
 
     const messageMatch = messages.find((controller) => controller.trigger = content);
 
-    if (matchedController) {
+    if (messageMatch) {
       await message.reply(messageMatch.response);
     }
 
