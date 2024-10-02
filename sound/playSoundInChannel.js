@@ -19,7 +19,7 @@ export default async function playSoundInChannel(message, soundFileName) {
   });
 
   const player = createAudioPlayer();
-  const resource = createAudioResource(join(process.cwd(), 'sounds', soundFileName));
+  const resource = createAudioResource(join(process.cwd(), 'sound', "sounds", soundFileName));
 
   player.play(resource);
   connection.subscribe(player);

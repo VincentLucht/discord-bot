@@ -36,9 +36,9 @@ client.on("messageCreate", async (message) => {
     }
 
     const soundMatch = sounds.find((sound) => sound.trigger === content);
-    console.log(soundMatch);
     if (soundMatch) {
-      await playSoundInChannel(message, soundMatch.trigger);
+      console.log(soundMatch.path);
+      await playSoundInChannel(message, soundMatch.path);
     }
   } catch (error) {
     console.error("Failed to react to message:", error);
