@@ -28,6 +28,7 @@ client.on("messageCreate", async (message) => {
   try {
     const content = message.content.trim().toLowerCase();
 
+    // text messages
     const messageMatch = messages.find(
       (message) => message.trigger === content
     );
@@ -35,10 +36,10 @@ client.on("messageCreate", async (message) => {
       await message.reply(messageMatch.response);
     }
 
+    // sounds
     const soundMatch = sounds.find((sound) => sound.trigger === content);
     if (soundMatch) {
-      console.log(soundMatch.path);
-      await playSoundInChannel(message, soundMatch.path);
+      await playSoundInChannel(message, soundMatch.path, soundMatch?.volume);
     }
   } catch (error) {
     console.error("Failed to react to message:", error);

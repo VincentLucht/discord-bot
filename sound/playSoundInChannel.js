@@ -2,7 +2,7 @@ import { joinVoiceChannel, createAudioPlayer, createAudioResource } from '@disco
 import { join } from 'path';
 import sodium from 'libsodium-wrappers';
 
-export default async function playSoundInChannel(message, soundFileName) {
+export default async function playSoundInChannel(message, soundFileName, volume = 0.1) {
   const voiceChannel = message.member.voice.channel;
   if (!voiceChannel) {
     await message.reply("You need to be in a voice channel to use this command!");
@@ -19,7 +19,11 @@ export default async function playSoundInChannel(message, soundFileName) {
   });
 
   const player = createAudioPlayer();
-  const resource = createAudioResource(join(process.cwd(), 'sound', "sounds", soundFileName));
+
+  const resource = createAudioResource(join(process.cwd(), 'sound', "sounds", soundFileName), {
+    inlineVolume: true
+  });
+  resource.volume.setVolume(volume); // set volume
 
   player.play(resource);
   connection.subscribe(player);
